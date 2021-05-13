@@ -1,18 +1,26 @@
 from errbot import BotPlugin, botcmd, arg_botcmd, re_botcmd
 import urllib.request
 import json
+from datetime import date
 
 class History(BotPlugin):
     """Return events from day in history"""
 
     @arg_botcmd('-d', type=str, dest='day', default='na')
     @arg_botcmd('-m', type=str, dest='month', default='na')
-    def day_in_history(self, msg, month, day):
+    @arg_botcmd('-i', type=str, dest='index', default='na')
+    def day_in_history(self, msg, month, day, index):
+        current_date = date.today()
         url = 'https://apizen.date/api/'
         if day == 'na':
-            day = '1'
+            day = str(current_date.day)
         if month == 'na':
-            month = '1'
+            month = str(current_date.month)
         page = urllib.request.Request(url+month+'/'+day)
         response = json.loads(urllib.request.urlopen(page).read().decode('utf-8'))
-        return response['data']['Events'][0]['text'][:-12]
+        last_index = len(response['data']['Events'])-1
+        if index == 'na':
+            index = last_index
+        if index > last_index:
+            return 'Too large index: '+index+'. Last index is '+last_index
+        return response['data']['Events'][index]['text']
