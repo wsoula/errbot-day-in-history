@@ -23,4 +23,4 @@ class History(BotPlugin):
             index = last_index
         if int(index) > last_index:
             return 'Too large index: '+index+'. Last index is '+last_index
-        return response['data']['Events'][index]['text']
+        return response['data']['Events'][int(index)]['text']
