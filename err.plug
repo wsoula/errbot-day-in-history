@@ -1,0 +1,9 @@
+[Core]
+Name = History
+Module = history
+
+[Documentation]
+Description = Return events from this day in history from https://apizen.date/
+
+[Python]
+Version = 3
