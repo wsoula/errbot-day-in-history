@@ -15,4 +15,4 @@ class History(BotPlugin):
             month = '1'
         page = urllib.request.Request(url+month+'/'+day)
         response = json.loads(urllib.request.urlopen(page).read().decode('utf-8'))
-        return response['data']['Events'][0]['text']
+        return response['data']['Events'][0]['text'][:-12]
