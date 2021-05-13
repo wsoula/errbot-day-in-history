@@ -21,6 +21,6 @@ class History(BotPlugin):
         last_index = len(response['data']['Events'])-1
         if index == 'na':
             index = last_index
-        if index > last_index:
+        if int(index) > last_index:
             return 'Too large index: '+index+'. Last index is '+last_index
         return response['data']['Events'][index]['text']
